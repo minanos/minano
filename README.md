@@ -22,7 +22,7 @@ Build all code skipping all tests:
 git clone https://github.com/minanos/minano.git
 cd minano
 mvn -DskipTests clean install
-mvn -o -DskipTests tomcat7:run -f runtime/pom.xml
+mvn -o -DskipTests tomcat7:run -f modules/runtime/pom.xml
 ```
 - **next**: start consuming the service like so: [Consuming Examples with `curl`](https://github.com/minanos/minano/wiki/Consuming-Examples-with-%60curl%60)
 
