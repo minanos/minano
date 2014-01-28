@@ -14,43 +14,52 @@ import org.springframework.stereotype.Component;
 @Component
 @Profile(TEST)
 public class TestMarshallerFactory implements FactoryBean<IMarshaller> {
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private Environment env;
+	@Autowired
+	private Environment env;
 
-    public TestMarshallerFactory() {
-        super();
-    }
+	public TestMarshallerFactory() {
+		super();
+	}
 
-    // API
+	// API
 
-    @Override
-    public IMarshaller getObject() {
-        final String testMime = env.getProperty("test.mime");
-        logger.info("Initializing Marshaller for mime = " + testMime);
-        if (testMime != null) {
-            switch (testMime) {
-            case "json":
-                return new JacksonMarshaller();
-            case "xml":
-                return new XStreamMarshaller();
-            default:
-                throw new IllegalStateException();
-            }
-        }
+	@Override
+	public IMarshaller getObject() {
+		final String testMime = env.getProperty("test.mime");
+		logger.info("Initializing Marshaller for mime = " + testMime);
+		if (testMime != null) {
+			if ("json".equalsIgnoreCase(testMime)) {
+				return new JacksonMarshaller();
+			} else if ("xml".equalsIgnoreCase(testMime)) {
+				return new XStreamMarshaller();
+			} else {
+				throw new IllegalStateException();
+			}
+		}
+		// if (testMime != null) {
+		// switch (testMime) {
+		// case "json":
+		// return new JacksonMarshaller();
+		// case "xml":
+		// return new XStreamMarshaller();
+		// default:
+		// throw new IllegalStateException();
+		// }
+		// }
 
-        return new JacksonMarshaller();
-    }
+		return new JacksonMarshaller();
+	}
 
-    @Override
-    public Class<IMarshaller> getObjectType() {
-        return IMarshaller.class;
-    }
+	@Override
+	public Class<IMarshaller> getObjectType() {
+		return IMarshaller.class;
+	}
 
-    @Override
-    public boolean isSingleton() {
-        return true;
-    }
+	@Override
+	public boolean isSingleton() {
+		return true;
+	}
 
 }
