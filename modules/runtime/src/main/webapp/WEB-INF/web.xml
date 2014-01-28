@@ -74,7 +74,7 @@
 		<servlet-name>api</servlet-name>
 		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- runtime -->
 	<servlet>
 		<servlet-name>runtime</servlet-name>
@@ -104,5 +104,7 @@
 	<welcome-file-list>
 		<welcome-file />
 	</welcome-file-list>
-
+	<session-config>
+		<tracking-mode>COOKIE</tracking-mode>
+	</session-config>
 </web-app>
