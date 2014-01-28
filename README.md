@@ -16,11 +16,16 @@ Build all code skipping all tests:
 
     mvn -DskipTests clean install
 
-Build all including javadoc and distribution (used for CI build):
 
-    mvn -P all clean install
-## Running
-	mvn -o -DskipTests tomcat7:run -f runtime/pom.xml
+## Quick Start
+```
+git clone https://github.com/minanos/minano.git
+cd minano
+mvn -DskipTests clean install
+mvn -o -DskipTests tomcat7:run -f runtime/pom.xml
+```
+- **next**: start consuming the service like so: [Consuming Examples with `curl`](https://github.com/minanos/minano/wiki/Consuming-Examples-with-%60curl%60)
+
 
 ## Signin with below account:
 E-Mail: admin@minano.com
