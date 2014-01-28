@@ -1,0 +1,17 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="${LAYOUT}">
+
+<head>
+    <title th:text="#{Index}">Index</title>
+</head>
+
+<body>
+
+    <div layout:fragment="container">
+    	BaseURL: <span th:text="${baseURL}"></span> <br />
+    	CDNURL: <span th:text="${cdnURL}"></span><br />
+        <div th:utext="#{HelloWorld}"></div>
+    </div>
+</body>
+
+</html>

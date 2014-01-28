@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="minano-runtime" version="3.0">
 
-	<display-name>runtime</display-name>
+	<display-name>minano-runtime</display-name>
 
 	<!-- Spring security -->
 	<listener>
@@ -51,9 +51,9 @@
 		<param-value>org.rest.sec.persistence.setup.MyApplicationContextInitializer</param-value>
 	</context-param>
 
-	<!-- rest -->
+	<!-- api -->
 	<servlet>
-		<servlet-name>runtime</servlet-name>
+		<servlet-name>api</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextClass</param-name>
@@ -71,8 +71,32 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>runtime</servlet-name>
+		<servlet-name>api</servlet-name>
 		<url-pattern>/api/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- runtime -->
+	<servlet>
+		<servlet-name>runtime</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextClass</param-name>
+			<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+		</init-param>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>com.minano.runtime.config</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dispatchOptionsRequest</param-name>
+			<param-value>true</param-value>
+		</init-param>
+
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>runtime</servlet-name>
+		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 
 	<!-- Disables servlet container welcome file handling. Needed for compatibility 

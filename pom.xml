@@ -58,6 +58,15 @@
 
 	<properties>
 
+
+
+		<thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
+		<thymeleaf-extras-tiles2-version>2.1.0.RELEASE</thymeleaf-extras-tiles2-version>
+		<thymeleaf-extras-springsecurity3-version>2.1.0.RELEASE</thymeleaf-extras-springsecurity3-version>
+		<thymeleaf-extras-conditionalcomments-version>2.1.0.RELEASE</thymeleaf-extras-conditionalcomments-version>
+		<thymeleaf-extras-layout-version>1.2</thymeleaf-extras-layout-version>
+
+
 		<!-- Spring related -->
 		<spring.version>4.0.0.RELEASE</spring.version>
 		<spring-security.version>3.2.0.RELEASE</spring-security.version> <!--  -->
