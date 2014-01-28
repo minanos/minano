@@ -1,0 +1,76 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>minano-ui</artifactId>
+	<packaging>war</packaging>
+	<name>minano-ui</name>
+
+
+	<parent>
+		<groupId>com.minanos</groupId>
+		<artifactId>minano-parent</artifactId>
+		<version>0.1.1-SNAPSHOT</version>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+
+		<!-- internal -->
+
+		<dependency>
+			<groupId>com.minanos</groupId>
+			<artifactId>minano-common</artifactId>
+			<version>0.1.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.minanos</groupId>
+			<artifactId>minano-test</artifactId>
+			<version>0.1.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- web -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<finalName>minano-ui</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+
+		<plugins>
+			
+			<!-- placeholder -->
+
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.3</version>
+					<configuration>
+						<failOnMissingWebXml>false</failOnMissingWebXml>
+					</configuration>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+
+	</build>
+
+	<properties>
+		<!--  -->
+	</properties>
+
+</project>

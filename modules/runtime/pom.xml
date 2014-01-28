@@ -1,0 +1,320 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>minano-runtime</artifactId>
+	<packaging>war</packaging>
+	<name>minano-runtime</name>
+
+	<parent>
+		<groupId>com.minanos</groupId>
+		<artifactId>minano-parent</artifactId>
+		<version>0.1.1-SNAPSHOT</version>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+
+		<!-- internal -->
+
+		<dependency>
+			<groupId>com.minanos</groupId>
+			<artifactId>minano-common</artifactId>
+			<version>0.1.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.minanos</groupId>
+			<artifactId>minano-test</artifactId>
+			<version>0.1.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.minanos</groupId>
+			<artifactId>minano-api</artifactId>
+			<version>0.1.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- util -->
+
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>${commons-codec.version}</version>
+		</dependency>
+
+		<!-- web -->
+
+		<!-- <dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${javax.servlet-api.version}</version>
+			<scope>provided</scope>
+		</dependency> -->
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-servlet-api</artifactId>
+			<version>7.0.33</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- test scoped -->
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit-dep</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-core</artifactId>
+			<version>${org.hamcrest.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<version>${org.hamcrest.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.jayway.restassured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>${rest-assured.version}</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<finalName>minano-runtime</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>**/*RestIntegrationTest.java</exclude>
+						<exclude>**/*RestLiveTest.java</exclude>
+					</excludes>
+					<systemPropertyVariables>
+						<persistenceTarget>h2</persistenceTarget>
+					</systemPropertyVariables>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.zeroturnaround</groupId>
+				<artifactId>jrebel-maven-plugin</artifactId>
+				<version>${jrebel-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>generate-rebel-xml</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<warName>${project.build.finalName}</warName>
+					<!-- <ignoreWebxml>true</ignoreWebxml> -->
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.cargo</groupId>
+				<artifactId>cargo-maven2-plugin</artifactId>
+				<version>${cargo-maven2-plugin.version}</version>
+				<configuration>
+					<wait>false</wait>
+					<container>
+						<containerId>jetty8x</containerId>
+						<type>embedded</type>
+						<systemProperties>
+							<envTarget>dev</envTarget>
+							<persistenceTarget>cargo</persistenceTarget>
+						</systemProperties>
+					</container>
+					<configuration>
+						<properties>
+							<cargo.servlet.port>8080</cargo.servlet.port>
+						</properties>
+					</configuration>
+				</configuration>
+			</plugin>
+
+
+
+
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<port>8080</port>
+					<!-- <path>/${project.build.finalName}</path> -->
+					<path>/</path>
+					<uriEncoding>UTF-8</uriEncoding>
+					<clientAuth>false</clientAuth>
+					<systemProperties>
+							<!-- -DenvTarget=dev
+							-DpersistenceTarget=tomcat-dev
+							-DwebTarget=dev -->
+						<JAVA_OPTS>
+							-DenvTarget=dev
+							-DpersistenceTarget=tomcat
+							-DwebTarget=dev
+							-Dorg.apache.coyote.USE_CUSTOM_STATUS_MSG_IN_HEADER=true
+							-Dsun.io.useCanonCaches=false -Dreloadable=false
+							-DsessionCookiePath=/ -DsessionCookieName=UES_SESSION -Xmx2048m
+							-XX:MaxPermSize=1024m
+							-Dnet.sf.ehcache.pool.sizeof.AgentSizeOf.bypass=true
+							-Dnet.sf.ehcache.skipUpdateCheck=true
+							-Dcom.sun.management.jmxremote
+							-Dcom.sun.management.jmxremote.port=9005
+							-Dcom.sun.management.jmxremote.ssl=false
+							-Dcom.sun.management.jmxremote.authenticate=false
+						</JAVA_OPTS>
+						<envTarget>dev</envTarget>
+<!-- 						<spring.profiles.active>dev</spring.profiles.active> -->
+						<persistenceTarget>tomcat</persistenceTarget>
+					</systemProperties>
+				</configuration>
+			</plugin>
+			
+			
+		</plugins>
+
+	</build>
+
+	<profiles>
+		<profile>
+			<id>integration</id>
+			<build>
+				<plugins>
+
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>start-server</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>start</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>stop-server</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<configuration>
+									<excludes>
+										<exclude>none</exclude>
+									</excludes>
+									<includes>
+										<include>**/*RestIntegrationTest.java</include>
+										<include>**/*RestLiveTest.java</include>
+									</includes>
+									<systemPropertyVariables>
+										<webTarget>cargo</webTarget>
+									</systemPropertyVariables>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>smoke-read-only</id>
+			<build>
+				<plugins>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<excludes>
+								<exclude>**/*Test.java</exclude>
+							</excludes>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<configuration>
+									<excludes>
+										<exclude>**/*ProductionRestLiveTest.java</exclude>
+										<exclude>**/*ManualTest.java</exclude>
+									</excludes>
+									<includes>
+										<include>**/*ReadOnly*LiveTest.java</include>
+									</includes>
+									<!-- <systemPropertyVariables> <secWebTarget>smoke_staging</secWebTarget> </systemPropertyVariables> -->
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
+
+</project>
