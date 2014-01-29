@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>minano-runtime</artifactId>
 	<packaging>war</packaging>
@@ -13,7 +14,11 @@
 
 	<dependencies>
 
-
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
 
 
 		<!-- template engine -->
@@ -34,7 +39,7 @@
 			<artifactId>thymeleaf-layout-dialect</artifactId>
 			<version>${thymeleaf-extras-layout-version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-tiles2</artifactId>
@@ -85,12 +90,8 @@
 
 		<!-- web -->
 
-		<!-- <dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>${javax.servlet-api.version}</version>
-			<scope>provided</scope>
-		</dependency> -->
+		<!-- <dependency> <groupId>javax.servlet</groupId> <artifactId>javax.servlet-api</artifactId> 
+			<version>${javax.servlet-api.version}</version> <scope>provided</scope> </dependency> -->
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-servlet-api</artifactId>
@@ -234,9 +235,7 @@
 					<uriEncoding>UTF-8</uriEncoding>
 					<clientAuth>false</clientAuth>
 					<systemProperties>
-							<!-- -DenvTarget=dev
-							-DpersistenceTarget=tomcat-dev
-							-DwebTarget=dev -->
+						<!-- -DenvTarget=dev -DpersistenceTarget=tomcat-dev -DwebTarget=dev -->
 						<JAVA_OPTS>
 							-DenvTarget=dev
 							-DpersistenceTarget=tomcat
@@ -253,13 +252,13 @@
 							-Dcom.sun.management.jmxremote.authenticate=false
 						</JAVA_OPTS>
 						<envTarget>dev</envTarget>
-<!-- 						<spring.profiles.active>dev</spring.profiles.active> -->
+						<!-- <spring.profiles.active>dev</spring.profiles.active> -->
 						<persistenceTarget>tomcat</persistenceTarget>
 					</systemProperties>
 				</configuration>
 			</plugin>
-			
-			
+
+
 		</plugins>
 
 	</build>
@@ -347,7 +346,8 @@
 									<includes>
 										<include>**/*ReadOnly*LiveTest.java</include>
 									</includes>
-									<!-- <systemPropertyVariables> <secWebTarget>smoke_staging</secWebTarget> </systemPropertyVariables> -->
+									<!-- <systemPropertyVariables> <secWebTarget>smoke_staging</secWebTarget> 
+										</systemPropertyVariables> -->
 								</configuration>
 							</execution>
 						</executions>

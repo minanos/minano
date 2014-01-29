@@ -58,7 +58,8 @@
 
 	<properties>
 
-
+		<querydsl>3.2.3</querydsl>
+		<querydsl.version>3.2.3</querydsl.version>
 
 		<thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
 		<thymeleaf-extras-tiles2-version>2.1.0.RELEASE</thymeleaf-extras-tiles2-version>
