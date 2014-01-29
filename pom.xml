@@ -58,8 +58,11 @@
 
 	<properties>
 
+		
 		<querydsl>3.2.3</querydsl>
 		<querydsl.version>3.2.3</querydsl.version>
+
+		<dozer.version>5.4.0</dozer.version>
 
 		<thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
 		<thymeleaf-extras-tiles2-version>2.1.0.RELEASE</thymeleaf-extras-tiles2-version>
@@ -67,6 +70,11 @@
 		<thymeleaf-extras-conditionalcomments-version>2.1.0.RELEASE</thymeleaf-extras-conditionalcomments-version>
 		<thymeleaf-extras-layout-version>1.2</thymeleaf-extras-layout-version>
 
+
+		<ehcache.version>2.7.4</ehcache.version>
+		<ehcache-core.version>2.6.6</ehcache-core.version>
+		<ehcache-jcache.version>1.5.0-0.5</ehcache-jcache.version>
+		
 
 		<!-- Spring related -->
 		<spring.version>4.0.0.RELEASE</spring.version>

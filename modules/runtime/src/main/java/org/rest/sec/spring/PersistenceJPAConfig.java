@@ -55,7 +55,7 @@ public class PersistenceJPAConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
         final LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(restDataSource());
-        factoryBean.setPackagesToScan(new String[] { "org.rest" });
+		factoryBean.setPackagesToScan(new String[] { "org.rest" });
 
         final JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter() {
             {

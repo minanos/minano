@@ -9,7 +9,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@ComponentScan({ "com.minano.runtime.notification" })
+@ComponentScan({})
 @PropertySource({ "classpath:settings.properties" })
 public class ContextConfig {
 	public ContextConfig() {
